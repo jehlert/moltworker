@@ -163,7 +163,12 @@ if (config.models?.providers?.anthropic?.models) {
     }
 }
 
-
+// Clean up invalid 'dm' key from telegram channel config
+// (OpenClaw uses 'dmPolicy' directly, not nested 'dm' object)
+if (config.channels?.telegram?.dm !== undefined) {
+    console.log('Removing invalid "dm" key from telegram channel config');
+    delete config.channels.telegram.dm;
+}
 
 // Gateway configuration
 config.gateway.port = 18789;
